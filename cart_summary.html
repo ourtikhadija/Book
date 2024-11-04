@@ -1,0 +1,24 @@
+{% extends 'base.html'%}
+{% block content %}
+{% comment %} <h2>Your Cart</h2> {% endcomment %}
+
+<div class="cart-container">
+    {% if cart %}
+        {% for item in cart.values %}
+            <div class="cart-item">
+                <img src="{{ item.image_url }}" alt="{{ item.title }}">
+                <div class="cart-item-info">
+                    <div class="cart-item-title">{{ item.title }}</div>
+                    <div class="cart-item-price">Price: ${{ item.price }}</div>
+                    <div class="cart-item-quantity">Quantity: {{ item.quantity }}</div>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="checkout-link">
+            <a href="{% url 'books:checkout' %}">Proceed to Checkout</a>
+        </div>
+    {% else %}
+        <p class="empty-cart">Your cart is empty.</p>
+    {% endif %}
+</div>
+{% endblock %}

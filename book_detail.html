@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title%} 
+{{ book.title }} | Book Details
+{% endblock %}
+
+{% block content %}
+<!-- Product Section -->
+<section class="product-section">
+    <div class="container">
+        <div class="product-details">
+            <div class="product-image">
+                <img src="{{ book.image.url }}" alt="{{ book.title }}">
+            </div>
+            <div class="product-info">
+                <h1>{{ book.title }}</h1>
+                <p class="author">{{ book.author }}</p>
+                {% comment %} <p class="genre">{{ book.genre }}</p> {% endcomment %}
+                {% comment %} <div class="rating">
+                    <span>★★★★★</span> <!-- If you have a rating system, you can dynamically update this as well -->
+                </div> {% endcomment %}
+                <p class="price">${{ book.price }}</p>
+                <p class="description">
+                    {{ book.description }}
+                </p>
+                <form class="add-to-cart" method="post" action="{% url 'books:add_to_cart' book.id %}">
+                    {% csrf_token %}
+                    <label for="quantity">Qty:</label>
+                    <input type="number" id="quantity" name="quantity" min="1" value="1">
+                    <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Tabbed Content Section -->
+        {% comment %} <div class="product-tabs">
+            <ul class="tabs">
+                <li class="tab active">Description</li>
+            </ul>
+            <div class="tab-content">
+                <h2>Product Description</h2>
+                <p>{{ book.long_description }}</p> <!-- You could have a longer description field if necessary -->
+            </div>
+        </div> {% endcomment %}
+    </div>
+</section>
+{% endblock %}

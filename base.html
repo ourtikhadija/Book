@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %} 
+        Online Bookstore
+        {% endblock%}
+    </title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="#">BOOK</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/books">Store</a></li>
+                <li><a href="/authors">Authors</a></li>
+                <li><a href="/about">About</a></li>
+                {% comment %} <li><a href="#">Account</a></li> {% endcomment %}
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                    <li><a href="{% url 'my_account' %}">My Account</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                {% endif %}
+                <li><a href="#" class="contact-btn">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    {% block content %} {% endblock%}
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-content">
+            <h3>BOOK</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis sed elit nibh habitant.</p>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

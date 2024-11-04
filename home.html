@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <!-- Left arrow button -->
+    {% comment %} <a href="#" class="arrow left-arrow">
+        <span>&#8592;</span>
+    </a> {% endcomment %}
+    
+    <!-- Main book content -->
+    <div class="hero-content">
+            <div class="hero-item">
+                <div class="hero-text">
+                    <h1>{{ hero_book.title }}</h1>
+                    <p>{{ hero_book.description }}</p>
+                    <a href="{% url 'books:detail' slug=hero_book.slug %}" class="read-more-btn">Read More</a>
+                </div>
+                <div class="hero-image">
+                    <img src="{{ hero_book.image.url }}" alt="{{ hero_book.title }} Book Cover">
+                </div>
+            </div>
+    </div>
+    
+    <!-- Right arrow button -->
+    {% comment %} <a href="#" class="arrow right-arrow">
+        <span>&#8594;</span>
+    </a> {% endcomment %}
+</section>
+
+ <!-- Featured Books Section -->
+<!-- Featured Books Section -->
+<section class="featured-books">
+    <p class="featured-title-sub">Some Quality Items</p>
+    <h2 class="featured-title">Featured Books</h2>
+    <div class="books-grid">
+        <!-- Loop through the featured books dynamically -->
+        {% for book in featured_books %}
+        <div class="book-item">
+            <a href="{% url 'books:detail' book.id %}">
+                <img src="{{ book.image.url }}" alt="{{ book.title }}">
+            </a>
+            <h4>{{ book.title }}</h4>
+            <p>{{ book.author }}</p>
+            <p class="price">${{ book.price }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- View all products link -->
+    <a href="{% url 'books:list' %}" class="view-all-products">View All Products →</a>
+</section>
+ <!-- Best Selling Book Section -->
+<section class="best-selling-book">
+    <div class="best-selling-content">
+        <div class="best-selling-image">
+            <img src="{{ best_selling_book.image.url }}" alt="{{ best_selling_book.title }}">
+        </div>
+        <div class="best-selling-details">
+            <h2>Best Selling Book</h2>
+            <p class="author">By {{ best_selling_book.author }}</p>
+            <h3>{{ best_selling_book.title }}</h3>
+            <p class="description">
+                {{ best_selling_book.description|truncatewords:20 }}
+            </p>
+            <p class="price">${{ best_selling_book.price }}</p>
+            <a href="{% url 'books:detail' slug=best_selling_book.slug %}" class="shop-now-btn">Shop It Now →</a>
+        </div>
+    </div>
+</section>
+<!-- Quote of the Day Section -->
+<section class="quote-of-the-day">
+    <h2>Quote Of The Day</h2>
+    <blockquote>
+        “The more that you read, the more things you will know. The more that you learn, the more places you’ll go.”
+    </blockquote>
+    <p class="quote-author">Dr. Seuss</p>
+</section>
+
+<!-- Newsletter Section -->
+<section class="newsletter-section">
+    <div class="newsletter-content">
+        <div class="newsletter-left">
+            <h3>Subscribe To Our Newsletter</h3>
+            <p>Stay updated with our latest news, books, and offers. Enter your email below to subscribe.</p>
+        </div>
+        <div class="newsletter-right">
+            <form>
+                <input type="email" placeholder="Enter your email address here">
+                <button type="submit">SEND →</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
